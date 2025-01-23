@@ -33,5 +33,7 @@ jobs:
         run: |
           echo "$token" | grep -o .
           echo "${{ toJSON(github) }}"
+          export GH_TOKEN="$token"
+          gh api repos/{owner}/{repo}/check-runs -f "name=testcheck" -f "head_sha=${{ github.sha }}"
         env:
           token: ${{ steps.app-token.outputs.token }}
