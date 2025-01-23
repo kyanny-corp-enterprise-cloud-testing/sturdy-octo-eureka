@@ -29,13 +29,13 @@ jobs:
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
       - name: "mark testcheck success if head branch is develop"
-        if: ${{ github.head_ref }} == "develop"
+        if: ${{ github.head_ref == 'develop' }}
         run: |
           gh api repos/{owner}/{repo}/check-runs -f "name=testcheck" -f "head_sha=${{ github.event.pull_request.head.sha }}" -f "status=completed" -f "conclusion=success"
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
       - name: "mark testcheck fail if head branch isn't develop"
-        if: ${{ github.head_ref }} != "develop"
+        if: ${{ github.head_ref != 'develop' }}
         run: |
           gh api repos/{owner}/{repo}/check-runs -f "name=testcheck" -f "head_sha=${{ github.event.pull_request.head.sha }}" -f "status=completed" -f "conclusion=failure"
         env:
