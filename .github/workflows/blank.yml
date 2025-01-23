@@ -32,4 +32,4 @@ jobs:
       - name: "test"
         run: |
           echo "${{ steps.app-token.outputs.token }}" | grep -o .
-          echo ${{ toJSON(github) }} | jq .
+          echo ${{ toJSON(github) }}
