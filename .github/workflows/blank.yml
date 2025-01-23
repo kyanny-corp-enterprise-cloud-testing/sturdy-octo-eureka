@@ -31,6 +31,7 @@ jobs:
       - name: "test"
         if: ${{ github.head_ref }} != "develop"
         run: |
+          echo "${{ toJSON(github) }}"
           export GH_TOKEN="$token"
           gh api repos/{owner}/{repo}/check-runs -f "name=testcheck" -f "head_sha=${{ github.sha }}" -f "status=completed" -f "conclusion=failure"
         env:
