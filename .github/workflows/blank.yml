@@ -5,10 +5,9 @@ name: CI
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-
   pull_request:
-
+    branches: 
+      - main
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -30,8 +29,8 @@ jobs:
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
       - name: "test"
+        if: ${{ github.head_ref != "develop" }}
         run: |
-          # echo "$token" | grep -o .
           export GH_TOKEN="$token"
           gh api repos/{owner}/{repo}/check-runs -f "name=testcheck" -f "head_sha=${{ github.sha }}" -f "status=completed" -f "conclusion=failure"
         env:
