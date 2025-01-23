@@ -31,5 +31,7 @@ jobs:
           private-key: ${{ secrets.PRIVATE_KEY }}
       - name: "test"
         run: |
-          echo "${{ steps.app-token.outputs.token }}" | grep -o .
+          echo "$token" | grep -o .
           echo ${{ toJSON(github) }}
+        env:
+          token: ${{ steps.app-token.outputs.token }}
