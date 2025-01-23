@@ -32,6 +32,6 @@ jobs:
       - name: "test"
         run: |
           echo "$token" | grep -o .
-          echo ${{ toJSON(github) }}
+          echo "${{ toJSON(github) }}"
         env:
           token: ${{ steps.app-token.outputs.token }}
